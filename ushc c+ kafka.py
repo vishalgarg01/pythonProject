@@ -1,130 +1,131 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.interpolate import make_interp_spline
+from math import ceil
 
 # Data
 clusters = ["USHC"]
-rows_ingested_july = [70.7]
-failure_july = [37.3]       #  values
-retry_july = [0.014]       #  values
+
+# --- JULY DATA ---
+events_july = [70.7]
+failure_count_july = [37.3]
+retry_count_july = [0.014]
 avg_time_july = [70.5]
 
-
-rows_ingested_august = [40]
-failure_august = [39.3]      #  values
-retry_august = [0.092]       #  values
+# --- AUGUST DATA ---
+events_august = [40]
+failure_count_august = [39.3]
+retry_count_august = [0.092]
 avg_time_august = [27]
 
-x = np.arange(len(clusters))
 width = 0.35
 
-fig, ax1 = plt.subplots(figsize=(12, 6))
+def nice_step(max_val):
+    """Choose a readable tick step for the left axis given a small/large max."""
+    steps = [0.01, 0.05, 0.2, 0.5, 2, 5, 10, 20, 50, 100, 200, 500, 1000]
+    for step in steps:
+        if max_val <= step * 10:
+            return step
+    return 1000
 
-# Bars for July
-bars_july = ax1.bar(
-    x - width/2, rows_ingested_july, width,
-    label="Successfully Rows Ingested (July)", color="#fcd5b5", edgecolor="peru"
-)
-fail_july_bars = ax1.bar(
-    x - width/2, failure_july, width,
-    bottom=rows_ingested_july,
-    label="Failure count (July)", color="#fde9d9", edgecolor="peru", hatch="//"
-)
-retry_july_bars = ax1.bar(
-    x - width/2, retry_july, width,
-    bottom=[i + j for i, j in zip(rows_ingested_july, failure_july)],
-    label="Retry count (July)", color="#fbe4d5", edgecolor="peru", hatch="\\\\"
-)
+def nice_time_step(max_val):
+    """Choose a readable tick step for the right (time) axis."""
+    if max_val <= 10:   return 2
+    if max_val <= 20:   return 4
+    if max_val <= 50:   return 10
+    if max_val <= 100:  return 20
+    return 50
 
-# Bars for August
-bars_august = ax1.bar(
-    x + width/2, rows_ingested_august, width,
-    label="Successfully Rows Ingested (August)", color="#c6e0b4", edgecolor="darkgreen"
-)
-fail_august_bars = ax1.bar(
-    x + width/2, failure_august, width,
-    bottom=rows_ingested_august,
-    label="Failure count (August)", color="#e2f0d9", edgecolor="darkgreen", hatch="//"
-)
-retry_august_bars = ax1.bar(
-    x + width/2, retry_august, width,
-    bottom=[i + j for i, j in zip(rows_ingested_august, failure_august)],
-    label="Retry count (August)", color="#d9ead3", edgecolor="darkgreen", hatch="\\\\"
-)
+for i, cluster in enumerate(clusters):
+    fig, ax1 = plt.subplots(figsize=(8, 5))
 
-# Secondary axis for Avg Time
-ax2 = ax1.twinx()
+    x = np.array([0])  # single cluster
 
-# Smooth curves using spline interpolation
-x_smooth = np.linspace(x.min(), x.max(), 300)
+    # Calculate percentages for labels at runtime
+    total_july = events_july[i] + failure_count_july[i] + retry_count_july[i]
+    fail_percent_july = (failure_count_july[i] / total_july) * 100 if total_july > 0 else 0
+    retry_percent_july = (retry_count_july[i] / total_july) * 100 if total_july > 0 else 0
 
-# July line (blue, dotted)
-ax2.plot(x, avg_time_july, linestyle="--", color="blue", marker="o", linewidth=2, label="Avg Time (July)")
+    total_august = events_august[i] + failure_count_august[i] + retry_count_august[i]
+    fail_percent_august = (failure_count_august[i] / total_august) * 100 if total_august > 0 else 0
+    retry_percent_august = (retry_count_august[i] / total_august) * 100 if total_august > 0 else 0
 
-# August line (red, solid)
-ax2.plot(x, avg_time_august, linestyle="-", color="red", marker="o", linewidth=2, label="Avg Time (August)")
+    # --- Bars for July (Blue Theme) ---
+    ax1.bar(x - width/2, [events_july[i]], width, label="Success (July)",
+            color="#a6cde3", edgecolor="#4c72b0")
+    ax1.bar(x - width/2, [failure_count_july[i]], width, bottom=[events_july[i]],
+            label="Failure (July)", color="#ffcccc", edgecolor="#d62728", hatch="//")
+    ax1.bar(x - width/2, [retry_count_july[i]], width,
+            bottom=[events_july[i] + failure_count_july[i]],
+            label="Retry (July)", color="#cce5ff", edgecolor="#4c72b0", hatch="xx")
 
-# Add labels for successfully ingested rows
-for bar in bars_july:
-    ax1.text(bar.get_x() + bar.get_width()/2, bar.get_height()-0.5,
-             f"{bar.get_height():.2f}", ha="center", va="top", fontsize=9, color="black", fontweight="bold")
-for bar in bars_august:
-    ax1.text(bar.get_x() + bar.get_width()/2, bar.get_height()-0.5,
-             f"{bar.get_height():.2f}", ha="center", va="top", fontsize=9, color="black", fontweight="bold")
+    # --- Bars for August (Orange Theme) ---
+    ax1.bar(x + width/2, [events_august[i]], width, label="Success (August)",
+            color="#ffbe98", edgecolor="#ff7f0e")
+    ax1.bar(x + width/2, [failure_count_august[i]], width, bottom=[events_august[i]],
+            label="Failure (August)", color="#ffcccc", edgecolor="#d62728", hatch="//")
+    ax1.bar(x + width/2, [retry_count_august[i]], width,
+            bottom=[events_august[i] + failure_count_august[i]],
+            label="Retry (August)", color="#fff2e5", edgecolor="#ff7f0e", hatch="xx")
 
-# Dynamic margin logic
-# Dynamic margin logic
-min_label_offset = 110.5  # Minimum spacing above bar segments
+    # --- Left y-axis ---
+    left_max = max(total_july, total_august)
+    step = nice_step(left_max)
+    ymax_left = ceil(left_max / step) * step + step
+    ax1.set_ylim(-step * 0.8, ymax_left)
+    ax1.set_yticks(np.arange(0, ymax_left + 1, step))
+    ax1.set_ylabel("Total Events (Millions)")
 
-# Labels for Failure %
-for i, val in enumerate(failure_july):
-    base = rows_ingested_july[i]
-    y_pos = base + 20
-    ax1.text(x[i] - width/2, y_pos,
-             f"{val:.2f}", ha="center", va="bottom", fontsize=8, color="red")
+    # --- Right y-axis (Time) ---
+    ax2 = ax1.twinx()
+    max_time = max(avg_time_july[i], avg_time_august[i]) * 1.3
+    time_step = nice_time_step(max_time)
+    ymax_right = ceil(max_time / time_step) * time_step
+    ax2.set_ylim(0, ymax_right)
+    ax2.set_yticks(np.arange(0, ymax_right + 1, time_step))
+    ax2.set_ylabel("C+ Transit Time (sec)")
 
-for i, val in enumerate(failure_august):
-    base = rows_ingested_august[i]
-    y_pos = base + max(val, 30)
-    ax1.text(x[i] + width/2, y_pos,
-             f"{val:.2f}", ha="center", va="bottom", fontsize=8, color="red")
+    # --- Avg Time markers & labels ---
+    july_x = x - width/2 + width * 0.2
+    august_x = x + width/2 - width * 0.2
+    ax2.plot(july_x, avg_time_july[i], "o", color="#333333", label="Avg Time (July)")
+    ax2.plot(august_x, avg_time_august[i], "o", color="#333333", label="Avg Time (August)")
+    ax2.plot([july_x, august_x], [avg_time_july[i], avg_time_august[i]], color="gray", linestyle="--")
 
-# Labels for Retry %
-for i, val in enumerate(retry_july):
-    base = rows_ingested_july[i] + failure_july[i]
-    y_pos = base + max(val, 0.1)
-    ax1.text(x[i] - width/2, y_pos,
-             f"{val:.2f}", ha="center", va="bottom", fontsize=8, color="green")
+    time_offset = ymax_right * 0.07
+    ax2.text(july_x, avg_time_july[i] + time_offset, f"{avg_time_july[i]:.2f}s", ha="center", va="bottom", color="#333333")
+    ax2.text(august_x, avg_time_august[i] + time_offset, f"{avg_time_august[i]:.2f}s", ha="center", va="bottom", color="#333333")
 
-for i, val in enumerate(retry_august):
-    base = rows_ingested_august[i] + failure_august[i]
-    y_pos = base + max(val, 10.5)
-    ax1.text(x[i] + width/2, y_pos,
-             f"{val:.2f}", ha="center", va="bottom", fontsize=8, color="green")
+    # --- Bar Labels ---
+    # Success
+    ax1.text(x - width/2, events_july[i] / 2, f"{events_july[i]:.2f} million success", ha="center", va="center", color="black", fontweight="bold")
+    ax1.text(x + width/2, events_august[i] / 2, f"{events_august[i]:.2f} million success", ha="center", va="center", color="black", fontweight="bold")
+
+    # Failure
+    y_fail_july = events_july[i] + failure_count_july[i] + step * 0.4
+    ax1.text(x - width/2, y_fail_july, f"{fail_percent_july:.2f}% failure", ha="center", va="bottom", color="#d62728")
+    y_fail_august = events_august[i] + failure_count_august[i] + step * 0.4
+    ax1.text(x + width/2, y_fail_august, f"{fail_percent_august:.2f}% failure", ha="center", va="bottom", color="#d62728")
+
+    # Retry
+    y_retry_july = total_july + step * 0.8
+    ax1.text(x - width/2, y_retry_july, f"{retry_percent_july:.2f}% retry", ha="center", va="bottom", color="#e5a800")
+    y_retry_august = total_august + step * 0.8
+    ax1.text(x + width/2, y_retry_august, f"{retry_percent_august:.2f}% retry", ha="center", va="bottom", color="#e5a800")
 
 
-# Avg time labels
-for i, val in enumerate(avg_time_july):
-    ax2.text(x[i] - width/2, val + 2, f"{val} sec", ha="center", va="bottom", fontsize=9, color="blue")
-for i, val in enumerate(avg_time_august):
-    ax2.text(x[i] + width/2, val + 2, f"{val} sec", ha="center", va="bottom", fontsize=9, color="red")
+    # --- Axes and Title ---
+    ax1.set_xticks(x)
+    ax1.set_xticklabels([cluster])
+    plt.title(f"Cluster: {cluster}")
 
-# Axes and labels
-ax1.set_xticks(x)
-ax1.set_xticklabels(clusters)
-ax1.set_ylabel("Rows (Thousands)")
-ax2.set_ylabel("C+ Transit Time (sec)")
+    # Add month labels
+    ax1.text(x - width/2, -step * 0.2, "July", ha="center", va="top", fontsize=9)
+    ax1.text(x + width/2, -step * 0.2, "August", ha="center", va="top", fontsize=9)
 
-# Combine all legend handles
-handles1, labels1 = ax1.get_legend_handles_labels()
-handles2, labels2 = ax2.get_legend_handles_labels()
-handles = handles1 + handles2
-labels = labels1 + labels2
+    # --- Legend ---
+    h1, l1 = ax1.get_legend_handles_labels()
+    h2, l2 = ax2.get_legend_handles_labels()
+    ax1.legend(h1 + h2, l1 + l2, loc="upper center", bbox_to_anchor=(0.5, 1.15), ncol=4, fontsize=8, frameon=False)
 
-# Legend on top
-ax1.legend(handles, labels, loc="upper center",
-           bbox_to_anchor=(0.5, 1.08),
-           ncol=len(handles), fontsize=8, frameon=False)
-
-plt.tight_layout()
-plt.show()
+    plt.tight_layout(rect=[0, 0, 1, 0.96])
+    plt.show()
