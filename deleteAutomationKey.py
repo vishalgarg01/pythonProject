@@ -1,7 +1,9 @@
 import requests
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-url = "https://apitester.capillary.in/apitest_app/redisRequest/getKeyByPattern?key=Event_Notification_Crm_Staging_New_Sanity*event_notification"
+# url = "https://apitester.capillary.in/apitest_app/redisRequest/getKeyByPattern?key=Event_Notification_Crm_Staging_New_Sanity*event_notification"
+url = "https://apitester.capillary.in/apitest_app/redisRequest/getKeyByPattern?key=Connect_Plus_Ushc_Crm*connect_plus"
+
 headers = {
     "Authorization": "Basic Q2FwaWxsYXJ5OklVTmhjR2xzYkdGeWVVQTROekl5",
     "Cookie": "csrftoken=TYWqGwlniVB5w9drA7apzbYSuzYor4b4"
