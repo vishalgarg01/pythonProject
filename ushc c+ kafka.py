@@ -6,16 +6,16 @@ from math import ceil
 clusters = ["USHC"]
 
 # --- JULY DATA ---
-events_july = [70.7]
-failure_count_july = [37.3]
-retry_count_july = [0.014]
-avg_time_july = [70.5]
+events_july = [40]
+failure_count_july = [39.3]
+retry_count_july = [0.092]
+avg_time_july = [27]
 
 # --- AUGUST DATA ---
-events_august = [40]
-failure_count_august = [39.3]
-retry_count_august = [0.092]
-avg_time_august = [27]
+events_august = [95]
+failure_count_august = [36]
+retry_count_august = [0.017]
+avg_time_august = [39]
 
 width = 0.35
 
@@ -119,8 +119,8 @@ for i, cluster in enumerate(clusters):
     plt.title(f"Cluster: {cluster}")
 
     # Add month labels
-    ax1.text(x - width/2, -step * 0.2, "July", ha="center", va="top", fontsize=9)
-    ax1.text(x + width/2, -step * 0.2, "August", ha="center", va="top", fontsize=9)
+    ax1.text(x - width/2, -step * 0.2, "August", ha="center", va="top", fontsize=9)
+    ax1.text(x + width/2, -step * 0.2, "September", ha="center", va="top", fontsize=9)
 
     # --- Legend ---
     h1, l1 = ax1.get_legend_handles_labels()

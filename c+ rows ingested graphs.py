@@ -4,13 +4,13 @@ from math import ceil
 
 # Data
 clusters = ["US", "IN", "EU", "ASIA"]
-rows_ingested_july = [41.5, 4.34, 8.8, 0.063] #success
-failure_count_july = [0.36, 0.002, 0, 0]
-avg_time_july = [400, 196, 474, 454]
+rows_ingested_july = [1.83, 2.15, 7.22, 0.061] #success
+failure_count_july = [0.186, 0.008, 0, 0]
+avg_time_july = [135, 142, 394, 445]
 
-rows_ingested_august = [1.83, 2.15, 7.22, 0.061]
-failure_count_august = [0.186, 0.008, 0, 0]
-avg_time_august = [135, 142, 394, 445]
+rows_ingested_august = [1.75,2.75,5.13,0.052]
+failure_count_august = [0, 0.001, 0,0]
+avg_time_august = [141, 118, 263, 478]
 
 width = 0.35
 
@@ -102,7 +102,7 @@ for i, cluster in enumerate(clusters):
         y_pos = avg_time_july[i] + time_label_offset
         va = "bottom"
     ax2.text(july_x, y_pos, f"{avg_time_july[i]} ms",
-             ha="center", va=va, fontsize=9, color="#333333")
+             ha="center", va=va, fontsize=18, color="#333333")
 
     # --- August time label ---
     norm_august_bar_top = (rows_ingested_august[i] + failure_count_august[i]) / ymax_left
@@ -116,7 +116,7 @@ for i, cluster in enumerate(clusters):
         y_pos = avg_time_august[i] + time_label_offset
         va = "bottom"
     ax2.text(august_x, y_pos, f"{avg_time_august[i]} ms",
-             ha="center", va=va, fontsize=9, color="#333333")
+             ha="center", va=va, fontsize=18, color="#333333")
 
     ax2.plot([july_x, august_x], [avg_time_july[i], avg_time_august[i]],
              color="gray", linestyle="--", linewidth=1)
@@ -132,15 +132,15 @@ for i, cluster in enumerate(clusters):
             va = "bottom"
         ax1.text(bar.get_x() + bar.get_width()/2, y,
                  f"{h:.2f} million success", ha="center", va=va,
-                 fontsize=9, color="black", fontweight="bold")
+                 fontsize=18, color="black", fontweight="bold")
 
     # --- Failure % labels with extra spacing ---
     ax1.text(x - width/2, rows_ingested_july[i] + failure_count_july[i] + step * 0.4,
              f"{fail_percent_july:.2f}% failure", ha="center", va="bottom",
-             fontsize=8, color="#d62728")
+             fontsize=18, color="#d62728")
     ax1.text(x + width/2, rows_ingested_august[i] + failure_count_august[i] + step * 0.4,
              f"{fail_percent_august:.2f}% failure", ha="center", va="bottom",
-             fontsize=8, color="#d62728")
+             fontsize=18, color="#d62728")
 
     # X-axis and title
     ax1.set_xticks(x)
@@ -148,8 +148,8 @@ for i, cluster in enumerate(clusters):
     plt.title(f"Cluster: {cluster}")
 
     # Add month labels at the bottom of the bars
-    ax1.text(x - width/2, -step * 0.2, "July", ha="center", va="top", fontsize=9)
-    ax1.text(x + width/2, -step * 0.2, "August", ha="center", va="top", fontsize=9)
+    ax1.text(x - width/2, -step * 0.2, "August", ha="center", va="top", fontsize=9)
+    ax1.text(x + width/2, -step * 0.2, "September", ha="center", va="top", fontsize=9)
 
     # Legends
     h1, l1 = ax1.get_legend_handles_labels()

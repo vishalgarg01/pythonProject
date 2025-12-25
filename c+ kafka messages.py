@@ -6,16 +6,16 @@ from math import ceil
 clusters = ["US", "IN", "EU", "ASIA"]
 
 # --- JULY DATA ---
-events_july = [67.7, 2287.3, 1188.8, 2830.3]
-failure_count_july = [0.3, 12.7, 1.2, 39.7]
-retry_count_july = [5.03, 1.69, 0.58, 1.26]
-avg_time_july = [7.2, 8.8, 96.9, 6.45]
+events_july = [310, 2515, 1160, 5300]
+failure_count_july = [0.1, 11.3, 0, 24.5]
+retry_count_july = [0.11, 5.45, 0.15, 2.04]
+avg_time_july = [7.52, 15, 72.7, 10]
 
 # --- AUGUST DATA ---
-events_august = [310, 2515, 1160, 5300]
-failure_count_august = [0.1, 11.3, 0, 24.5]
-retry_count_august = [0.11, 5.45, 0.15, 2.04]
-avg_time_august = [7.52, 15, 72.7, 10]
+events_august = [1210, 2430, 1180, 6080]
+failure_count_august = [0, 159, 0, 22]
+retry_count_august = [0,4,0,0]
+avg_time_august = [7.51, 14.4, 39, 12]
 
 width = 0.35
 
@@ -94,25 +94,25 @@ for i, cluster in enumerate(clusters):
     ax2.plot([july_x, august_x], [avg_time_july[i], avg_time_august[i]], color="gray", linestyle="--")
 
     time_offset = ymax_right * 0.07
-    ax2.text(july_x, avg_time_july[i] + time_offset, f"{avg_time_july[i]:.2f}s", ha="center", va="bottom", color="#333333")
-    ax2.text(august_x, avg_time_august[i] + time_offset, f"{avg_time_august[i]:.2f}s", ha="center", va="bottom", color="#333333")
+    ax2.text(july_x, avg_time_july[i] + time_offset, f"{avg_time_july[i]:.2f}s", ha="center", va="bottom", color="#333333",fontsize=14)
+    ax2.text(august_x, avg_time_august[i] + time_offset, f"{avg_time_august[i]:.2f}s", ha="center", va="bottom", color="#333333",fontsize=14)
 
     # --- Bar Labels ---
     # Success
-    ax1.text(x - width/2, events_july[i] / 2, f"{events_july[i]:.2f}k success", ha="center", va="center", color="black", fontweight="bold")
-    ax1.text(x + width/2, events_august[i] / 2, f"{events_august[i]:.2f}k success", ha="center", va="center", color="black", fontweight="bold")
+    ax1.text(x - width/2, events_july[i] / 2, f"{events_july[i]:.2f}k success", ha="center", va="center", color="black", fontweight="bold",fontsize=18)
+    ax1.text(x + width/2, events_august[i] / 2, f"{events_august[i]:.2f}k success", ha="center", va="center", color="black", fontweight="bold",fontsize=18)
 
     # Failure
     y_fail_july = events_july[i] + failure_count_july[i] + step * 0.4
-    ax1.text(x - width/2, y_fail_july, f"{fail_percent_july:.2f}% failure", ha="center", va="bottom", color="#d62728")
+    ax1.text(x - width/2, y_fail_july, f"{fail_percent_july:.2f}% failure", ha="center", va="bottom", color="#d62728",fontsize=18)
     y_fail_august = events_august[i] + failure_count_august[i] + step * 0.4
-    ax1.text(x + width/2, y_fail_august, f"{fail_percent_august:.2f}% failure", ha="center", va="bottom", color="#d62728")
+    ax1.text(x + width/2, y_fail_august, f"{fail_percent_august:.2f}% failure", ha="center", va="bottom", color="#d62728",fontsize=18)
 
     # Retry
     y_retry_july = total_july + step * 0.8 # Increased offset to avoid collision
-    ax1.text(x - width/2, y_retry_july, f"{retry_percent_july:.2f}% retry", ha="center", va="bottom", color="#e5a800")
+    ax1.text(x - width/2, y_retry_july, f"{retry_percent_july:.2f}% retry", ha="center", va="bottom", color="#e5a800",fontsize=18)
     y_retry_august = total_august + step * 0.8 # Increased offset to avoid collision
-    ax1.text(x + width/2, y_retry_august, f"{retry_percent_august:.2f}% retry", ha="center", va="bottom", color="#e5a800")
+    ax1.text(x + width/2, y_retry_august, f"{retry_percent_august:.2f}% retry", ha="center", va="bottom", color="#e5a800",fontsize=18)
 
 
     # --- Axes and Title ---
@@ -121,8 +121,8 @@ for i, cluster in enumerate(clusters):
     plt.title(f"Cluster: {cluster}")
 
     # Add month labels
-    ax1.text(x - width/2, -step * 0.2, "July", ha="center", va="top", fontsize=9)
-    ax1.text(x + width/2, -step * 0.2, "August", ha="center", va="top", fontsize=9)
+    ax1.text(x - width/2, -step * 0.2, "August", ha="center", va="top", fontsize=9)
+    ax1.text(x + width/2, -step * 0.2, "September", ha="center", va="top", fontsize=9)
 
     # --- Legend ---
     h1, l1 = ax1.get_legend_handles_labels()
