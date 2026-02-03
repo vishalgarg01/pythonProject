@@ -27,7 +27,7 @@ DEFAULT_CSRF = os.environ.get("APITEST_CSRF", "hjdeIRDyuH2w1QMrveIbdg86LW2I7ZZv"
 DEFAULT_URL = os.environ.get(
     "APITEST_URL", "https://apitester.capillary.in/apitest_app/addResult"
 )
-DEFAULT_RUN_NAME = "Connect_Plus_Crm_Staging_New_Sanity__2025-12-25_12-30-04"
+DEFAULT_RUN_NAME = "Connect_Plus_Sgcrm_Sanity__2026-01-30_07-30-04"
 
 
 def test_cases() -> List[Dict[str, str]]:
@@ -101,4 +101,6 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
 

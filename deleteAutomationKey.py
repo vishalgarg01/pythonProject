@@ -2,7 +2,7 @@ import requests
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # url = "https://apitester.capillary.in/apitest_app/redisRequest/getKeyByPattern?key=Event_Notification_Incrm_Sanity*event_notification"
-url = "https://apitester.capillary.in/apitest_app/redisRequest/getKeyByPattern?key=Connect_Plus_Ushc_Crm_Sanity*__2025*connect_plus"
+url = "https://apitester.capillary.in/apitest_app/redisRequest/getKeyByPattern?key=Connect_Plus_Sgcrm_Sanity__2026*connect_plus"
 
 headers = {
     "Authorization": "Basic Q2FwaWxsYXJ5OklVTmhjR2xzYkdGeWVVQTROekl5",

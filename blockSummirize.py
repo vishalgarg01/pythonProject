@@ -20,7 +20,7 @@ from typing import Any, Dict, Iterable, List, Optional, Set
 
 import requests
 
-BASE_URL = "https://eucrm.connectplus.capillarytech.com/api"
+BASE_URL = "https://uscrm.connectplus.capillarytech.com/api"
 AUTH_HEADER = "Basic YXV0b21hdGlvbl91c2VyOks1MjFyITMzYQ=="
 
 
