@@ -27,29 +27,29 @@ DEFAULT_CSRF = os.environ.get("APITEST_CSRF", "hjdeIRDyuH2w1QMrveIbdg86LW2I7ZZv"
 DEFAULT_URL = os.environ.get(
     "APITEST_URL", "https://apitester.capillary.in/apitest_app/addResult"
 )
-DEFAULT_RUN_NAME = "Connect_Plus_Sgcrm_Sanity__2026-01-30_07-30-04"
+DEFAULT_RUN_NAME = "Connect_Plus_Uscrm_Sanity__2026-04-09_23-30-05"
 
 
 def test_cases() -> List[Dict[str, str]]:
     """Return the test cases to post (no stored messages)."""
     return [
-        {"suite": "Test_Retro_Transaction", "case": "test_retro_transaction_sanity", "status": "Pass", "time": "0:00:34"},
-        {"suite": "Test_transaction_e2e", "case": "test_transaction_import_sanity", "status": "Pass", "time": "0:56:49"},
-        {"suite": "TestBadgesCreateUpdate", "case": "test_badges_create_update_sanity_skip_for_ushc_crm_skip_for_seacrm", "status": "Pass", "time": "0:57:21"},
-        {"suite": "TestCsvToJson", "case": "test_csv2json_sanity_skip_for_ningxia_crm_skip_for_tatacrm_skip_for_devenv_crm", "status": "Pass", "time": "0:57:22"},
-        {"suite": "TestCsvToXml", "case": "test_csv_to_xml_sanity", "status": "Pass", "time": "0:57:20"},
-        {"suite": "TestCustomerAdd", "case": "test_customer_add_sanity", "status": "Pass", "time": "0:57:09"},
-        {"suite": "TestCustomerAddOkFiles", "case": "test_customerAdd_ok_sanity", "status": "Pass", "time": "0:57:13"},
-        {"suite": "TestDatabricksJob", "case": "test_databricks_job_sanity", "status": "Pass", "time": "0:10:59"},
-        {"suite": "TestDataValidationBlock", "case": "test_data_validation_block_sanity_skip_for_tatacrm_skip_for_ushc_crm", "status": "Pass", "time": "0:57:12"},
+        # {"suite": "Test_Retro_Transaction", "case": "test_retro_transaction_sanity", "status": "Pass", "time": "0:00:34"},
+        # {"suite": "Test_transaction_e2e", "case": "test_transaction_import_sanity", "status": "Pass", "time": "0:56:49"},
+        # {"suite": "TestBadgesCreateUpdate", "case": "test_badges_create_update_sanity_skip_for_ushc_crm_skip_for_seacrm", "status": "Pass", "time": "0:57:21"},
+        # {"suite": "TestCsvToJson", "case": "test_csv2json_sanity_skip_for_ningxia_crm_skip_for_tatacrm_skip_for_devenv_crm", "status": "Pass", "time": "0:57:22"},
+        # {"suite": "TestCsvToXml", "case": "test_csv_to_xml_sanity", "status": "Pass", "time": "0:57:20"},
+        # {"suite": "TestCustomerAdd", "case": "test_customer_add_sanity", "status": "Pass", "time": "0:57:09"},
+        # {"suite": "TestCustomerAddOkFiles", "case": "test_customerAdd_ok_sanity", "status": "Pass", "time": "0:57:13"},
+        # {"suite": "TestDatabricksJob", "case": "test_databricks_job_sanity", "status": "Pass", "time": "0:10:59"},
+        # {"suite": "TestDataValidationBlock", "case": "test_data_validation_block_sanity_skip_for_tatacrm_skip_for_ushc_crm", "status": "Pass", "time": "0:57:12"},
         {"suite": "TestIntouchTransactionSanity", "case": "test_intouchTransaction_sanity", "status": "Pass", "time": "0:57:03"},
-        {"suite": "TestPullDataFromApi", "case": "test_http_iteration_pull_data_from_api_sanity_skip_for_tatacrm_skip_for_ushc_crm_skip_for_seacrm_skip_for_nightly_cc", "status": "Pass", "time": "0:00:02"},
-        {"suite": "TestSftp2SftpMerge", "case": "test_sftp2sftp_merge_sanity", "status": "Pass", "time": "0:57:08"},
-        {"suite": "TestSftp2SftpMergeFourFiles", "case": "test_sftp2sftp_merge_four_files_sanity", "status": "Pass", "time": "0:57:08"},
-        {"suite": "TestSftp2SftpMergeThreeFiles", "case": "test_sftp2sftp_merge_three_files_sanity", "status": "Pass", "time": "0:57:05"},
-        {"suite": "TestSftp2SftpWithHeader", "case": "test_sftp2sftp_with_header_sanity", "status": "Pass", "time": "0:56:53"},
-        {"suite": "TestTransactionCustomerAdd", "case": "test_transactionCustomerAdd_sanity", "status": "Pass", "time": "0:56:55"},
-        {"suite": "TestTransactionLineItemMerge", "case": "test_transaction_lineItem_merge_sanity_skip_for_ushc_crm", "status": "Pass", "time": "0:56:43"},
+        # {"suite": "TestPullDataFromApi", "case": "test_http_iteration_pull_data_from_api_sanity_skip_for_tatacrm_skip_for_ushc_crm_skip_for_seacrm_skip_for_nightly_cc", "status": "Pass", "time": "0:00:02"},
+        # {"suite": "TestSftp2SftpMerge", "case": "test_sftp2sftp_merge_sanity", "status": "Pass", "time": "0:57:08"},
+        # {"suite": "TestSftp2SftpMergeFourFiles", "case": "test_sftp2sftp_merge_four_files_sanity", "status": "Pass", "time": "0:57:08"},
+        # {"suite": "TestSftp2SftpMergeThreeFiles", "case": "test_sftp2sftp_merge_three_files_sanity", "status": "Pass", "time": "0:57:05"},
+        # {"suite": "TestSftp2SftpWithHeader", "case": "test_sftp2sftp_with_header_sanity", "status": "Pass", "time": "0:56:53"},
+        # {"suite": "TestTransactionCustomerAdd", "case": "test_transactionCustomerAdd_sanity", "status": "Pass", "time": "0:56:55"},
+        # {"suite": "TestTransactionLineItemMerge", "case": "test_transaction_lineItem_merge_sanity_skip_for_ushc_crm", "status": "Pass", "time": "0:56:43"},
         {"suite": "TestTransactionV2AddWithPaymentMode", "case": "test_transaction_v2_add_with_paymentMode_sanity", "status": "Pass", "time": "0:56:43"},
     ]
 

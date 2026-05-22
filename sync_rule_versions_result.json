@@ -1,0 +1,68 @@
+[
+  {
+    "ruleId": "a63037cc-5ee4-4830-94a1-7ebfc7989424",
+    "versionId": "4d00703e-6b78-4377-8a5e-870bc31e4942",
+    "namespace": 4000084,
+    "status": 200
+  },
+  {
+    "ruleId": "5412f836-3cb3-4805-81cf-142d1a8c6952",
+    "versionId": "e114b619-6ecb-41be-abbc-c196add803c2",
+    "namespace": 4000084,
+    "status": 200
+  },
+  {
+    "ruleId": "97c8848d-8d95-4b38-abd2-ecb1be82309c",
+    "versionId": "d2ba43be-4b39-4dca-8253-d4bbcdd691a6",
+    "namespace": 4000084,
+    "status": 500
+  },
+  {
+    "ruleId": "0cfe3145-e9e3-4076-aba8-d23859f6a5db",
+    "versionId": "4bce7704-c5c2-43e5-b1b9-22556e4301dc",
+    "namespace": 4000084,
+    "status": 200
+  },
+  {
+    "ruleId": "cace06c5-eea4-4c39-86e0-fd6d2ceec86a",
+    "versionId": "6abd374c-6a24-4553-bec0-554997b9dda1",
+    "namespace": 4000084,
+    "status": 200
+  },
+  {
+    "ruleId": "cb09aac1-0096-48cc-b14e-9d9822ce5dac",
+    "versionId": "09bb6435-d05a-4600-89ed-7b75cdb3a799",
+    "namespace": 4000084,
+    "status": 200
+  },
+  {
+    "ruleId": "e29d4354-9016-42b7-8eeb-68a93a0a4a8d",
+    "versionId": "5caaf017-0075-4a59-b30a-8db5f3c2d0d0",
+    "namespace": 4000084,
+    "status": 200
+  },
+  {
+    "ruleId": "19415777-28a1-46a0-ba29-aaab55dae648",
+    "versionId": "88a1a109-a36b-4bf8-9c74-a10660624e81",
+    "namespace": 97000117,
+    "status": 200
+  },
+  {
+    "ruleId": "ee27c0e7-9b55-41ea-8ad3-4ae11c2bb3dc",
+    "versionId": "ad190a3d-9377-45e8-8105-c4e8c0eb300f",
+    "namespace": 93000084,
+    "status": 200
+  },
+  {
+    "ruleId": "c22eb6a5-c78d-49ad-8d42-2c34078556b4",
+    "versionId": "2d222abc-e058-4edb-bb5e-e83b7030d8fe",
+    "namespace": 93000084,
+    "status": 200
+  },
+  {
+    "ruleId": "b1b7b7b0-f0c0-4129-b129-883ad0e9667c",
+    "versionId": "cbbb99c9-59b3-4905-b637-e199c2287d68",
+    "namespace": 93000084,
+    "status": 200
+  }
+]

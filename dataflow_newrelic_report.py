@@ -22,7 +22,7 @@ from urllib.parse import quote
 import requests
 
 # ConnectPlus API configuration
-BASE_URL = "https://eucrm.connectplus.capillarytech.com/api"
+BASE_URL = "https://ushccrm.connectplus.capillarytech.com/api"
 # Optionally override via env vars if needed
 AUTH_HEADER = os.getenv("CONNECTPLUS_AUTH_HEADER", "Basic YXV0b21hdGlvbl91c2VyOks1MjFyITMzYQ==")
 
@@ -32,7 +32,7 @@ NR_QUERY_KEY = os.getenv("NR_QUERY_KEY", "NRIQ-1kzjhqj-9OCR2Rmw_SAAcOsOROuvXU99"
 NR_BASE_URL = "https://insights-api.newrelic.com/v1/accounts"
 
 # Dataflow environment (used in NRQL filters)
-ENVIRONMENT = os.getenv("DATAFLOW_ENV", "eucrm")
+ENVIRONMENT = os.getenv("DATAFLOW_ENV", "ushccrm")
 
 
 def _require_nr_key():
@@ -166,7 +166,7 @@ def get_last_processed_info(dataflow_uuid: str) -> Tuple[Optional[str], Optional
     nrql = (
         "SELECT latest(lineageStartTime) "
         "FROM ErrorFileGeneration "
-        "WHERE appName = 'eucrm-glue' "
+        "WHERE appName = 'ushc-crm-glue' "
         f"AND dataflowUuid = '{escape_nrql_literal(dataflow_uuid)}' "
         "FACET lineageId SINCE 50 days ago LIMIT 1 "
     )
@@ -247,6 +247,11 @@ def process_dataflows() -> List[Dict[str, Any]]:
     for workspace in workspaces:
         workspace_id = workspace.get("id")
         workspace_enabled = bool(workspace.get("enabled", True))
+        workspace_name = workspace.get("name")
+        if not workspace_enabled or workspace_id not in (151):
+            continue
+        name_lower = workspace_name.lower()
+
         if not workspace_enabled:
             continue
 
@@ -299,6 +304,7 @@ def process_dataflows() -> List[Dict[str, Any]]:
                     "totalSizeProcessedMB": round(total_size_mb, 2) if total_size_mb is not None else 0.0,
                     "dataflowId": dataflow_uuid,
                     "blockTypesOrdered": block_chain,
+                    "workspaceId": workspace_id
                 }
             )
 
@@ -321,6 +327,7 @@ def write_csv(records: List[Dict[str, Any]], output_file: str) -> None:
         "totalSizeProcessedMB",
         "dataflowId",
         "blockTypesOrdered",
+        "workspaceId"
     ]
     with open(output_file, "w", newline="", encoding="utf-8") as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -337,7 +344,7 @@ def main():
     _require_nr_key()
 
     records = process_dataflows()
-    output_file = "eucrm_dataflow_newrelic_report.csv"
+    output_file = "ushccrm_dataflow_newrelic_report.csv"
     write_csv(records, output_file)
 
 
